@@ -10,7 +10,7 @@ print(f"\nEl jugador tiene {vidaJugador} puntos de vida y el PC tiene {vidaPC} p
 
 while vidaJugador > 0 and vidaPC > 0:
     print("\nTurno del jugador:")
-    print("1. Ataque ligero (5-15 puntos de daño) | 2. Ataque fuerte (8-25 puntos de daño) | 3. Curarse (10-20 puntos de vida)")
+    print("1. Ataque ligero (5-15 puntos de daño) | 2. Ataque fuerte (10-25 puntos de daño) ((PUEDE FALLAR)) | 3. Curarse (10-20 puntos de vida)")
     accion = input("Elige tu acción (1, 2 o 3): ")
 
     if accion == "1":
@@ -21,11 +21,15 @@ while vidaJugador > 0 and vidaPC > 0:
         print(f"¡Has infligido {danio} puntos de daño al PC!")
 
     elif accion == "2":
-        danio = random.randint(8, 25)
-        vidaPC -= danio
-        if danio == 25:
-            print("¡Golpe crítico!")
-        print(f"¡Has infligido {danio} puntos de daño al PC!")
+        if random.random() < 0.25:
+            print("¡El ataque fuerte ha fallado!")
+            danio = 0
+        else:
+            danio = random.randint(10, 25)
+            vidaPC -= danio
+            if danio == 25:
+                print("¡Golpe crítico!")
+            print(f"¡Has infligido {danio} puntos de daño al PC!")
 
     elif accion == "3" and vidaJugador == 100:
         print("No puedes curarte, ya tienes la vida completa.")
@@ -67,11 +71,15 @@ while vidaJugador > 0 and vidaPC > 0:
         print(f"¡Se han infligido {danioPC} puntos de daño al Jugador!")
 
     elif accionPC == "2":
-        danioPC = random.randint(8, 25)
-        vidaJugador -= danioPC
-        if danioPC == 25:
-            print("¡Golpe crítico del PC!")
-        print(f"¡Se han infligido {danioPC} puntos de daño al Jugador!")
+        if random.random() < 0.25:
+            print("¡El ataque fuerte ha fallado!")
+            danio = 0
+        else:
+            danioPC = random.randint(10, 25)
+            vidaJugador -= danioPC
+            if danioPC == 25:
+                print("¡Golpe crítico del PC!")
+            print(f"¡Se han infligido {danioPC} puntos de daño al Jugador!")
 
     elif accionPC == "3" and vidaPC == 100:
         print("No puede curarse, ya tiene la vida completa.")
